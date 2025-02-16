@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Zainab Ansari Memorial</title>
+    <style>
+        :root {
+            --primary: #0a0a0a;
+            --secondary: #1a0d15;
+            --accent: #ffd93b;
+            --text: rgba(255,255,255,0.92);
+            --base-size: min(4vw, 20px);
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at 50% 50%, #1a0d15 0%, #0a0a0a 70%);
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--text);
+            overflow-x: hidden;
+            touch-action: manipulation;
+        }
+
+        .memorial-container {
+            width: 90%;
+            max-width: 400px;
+            padding: 5vh 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5vh;
+        }
+
+        /* Candle Section */
+        .candle-container {
+            width: 15vw;
+            height: 45vw;
+            max-width: 80px;
+            max-height: 240px;
+            filter: drop-shadow(0 0 12px rgba(255, 217, 0, 0.3));
+        }
+
+        .candle {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(15deg, #2e1c12 0%, #4a382d 20%, #6d594a 100%);
+            border-radius: 0.4rem;
+            animation: sway 6s cubic-bezier(0.4,0,0.6,1) infinite;
+            position: relative;
+        }
+
+        .flame {
+            width: 30%;
+            height: 15%;
+            background: radial-gradient(circle at 50% 0%, #fff3b0 0%, #ff904d 30%, #ff4d4d 70%);
+            position: absolute;
+            top: -15%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 50% 50% 35% 35%;
+            animation: flicker 0.1s infinite, glow 2s ease-in-out infinite alternate;
+            mix-blend-mode: plus-lighter;
+        }
+
+        /* Profile Image */
+        .profile {
+            width: 35vw;
+            height: 35vw;
+            max-width: 160px;
+            max-height: 160px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 20px rgba(255, 217, 0, 0.3);
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        /* Tribute Message */
+        .tribute {
+            width: 90%;
+            padding: 5%;
+            background: linear-gradient(45deg, rgba(26, 13, 21, 0.95) 0%, rgba(42, 23, 33, 0.95) 100%);
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 217, 0, 0.15);
+            box-shadow: 0 0 20px rgba(109, 13, 48, 0.6);
+            backdrop-filter: blur(8px);
+            transition: transform 0.3s ease;
+        }
+
+        h1 {
+            font-size: calc(var(--base-size) * 1.8);
+            margin: 0 0 1.5vh 0;
+            color: var(--accent);
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        p {
+            font-size: calc(var(--base-size) * 1.1);
+            line-height: 1.6;
+            margin: 2vh 0;
+            text-align: center;
+        }
+
+        /* Animations */
+        @keyframes sway {
+            0%, 100% { transform: rotate(0.6deg); }
+            50% { transform: rotate(-0.6deg); }
+        }
+
+        @keyframes flicker {
+            0%, 100% { transform: translateX(-50%) scale(0.98) rotate(-0.5deg); }
+            50% { transform: translateX(-50%) scale(1.02) rotate(0.5deg); }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 10px #ff5722; }
+            100% { box-shadow: 0 0 20px #ff3000; }
+        }
+
+        /* Mobile Interactions */
+        .tribute:active {
+            transform: scale(0.98);
+            background: linear-gradient(45deg, rgba(20, 10, 15, 0.95) 0%, rgba(35, 18, 25, 0.95) 100%);
+        }
+
+        .profile:active {
+            transform: scale(0.95);
+        }
+
+        @media (hover: hover) {
+            .tribute:hover {
+                transform: scale(1.02);
+            }
+            .profile:hover {
+                transform: scale(1.05);
+            }
+        }
+
+        /* Back Button Styling */
+        .back-btn {
+            position: fixed;
+            bottom: 20px; /* Position at the bottom */
+            left: 50%; /* Center horizontally */
+            transform: translateX(-50%); /* Adjust for exact centering */
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            text-align: center;
+        }
+
+        .back-btn:hover {
+            transform: translateX(-50%) translateY(-2px); /* Adjust for hover effect */
+            background: var(--secondary);
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="memorial-container">
+        <div class="candle-container">
+            <div class="candle">
+                <div class="flame"></div>
+            </div>
+        </div>
+
+        <a href="https://en.wikipedia.org/wiki/Murder_of_Zainab_Ansari" 
+           target="_blank" 
+           rel="noopener noreferrer"
+           aria-label="Learn more about Zainab Ansari">
+            <img src="https://upload.wikimedia.org/wikipedia/en/3/3a/Zainab_Ansari_Pakistan_4_January_2018a.jpg" alt="Zainab Ansari" class="profile">
+        </a>
+
+        <div class="tribute">
+            <h1>In Eternal Memory</h1>
+            <p>
+                ✨ May <em>Zainab Ansari's</em> courageous spirit<br>
+                find eternal peace ✨
+            </p>
+            <p>
+                Through <em>Safemate</em>, we honor her legacy,<br>
+                forging pathways to safety and justice for all
+            </p>
+            <p>
+                "Her light illuminates our purpose"
+            </p>
+        </div>
+    </div>
+
+    <!-- Back Button -->
+    <a href="safemate.html" class="back-btn">Back to SafeMate</a>
+
+    <script>
+        // Dynamic sizing based on viewport
+        function updateSizes() {
+            const baseSize = Math.min(window.innerWidth, window.innerHeight);
+            document.documentElement.style.setProperty('--base-size', `${baseSize/50}px`);
+        }
+        updateSizes();
+        window.addEventListener('resize', updateSizes);
+
+        // Touch interaction handling
+        let lastTouch = 0;
+        document.addEventListener('touchstart', (e) => {
+            const currentTime = new Date().getTime();
+            if (currentTime - lastTouch < 500) {
+                e.preventDefault();
+            }
+            lastTouch = currentTime;
+        }, { passive: false });
+    </script>
+</body>
+</html>

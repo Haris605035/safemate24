@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Login and Registration Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF4B7D;
+            --secondary: #FF7854;
+            --dark: #2A2A2A;
+            --light-bg: rgba(255, 255, 255, 0.98);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 10px auto;
+            background: var(--light-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            font-size: 30px;
+            color: #555;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            position: relative;
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        .input-group label {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            font-size: 16px;
+            color: #555;
+            padding: 0 5px;
+            pointer-events: none;
+            transition: 0.3s;
+        }
+
+        .input-group input {
+            width: 100%;
+            height: 40px;
+            font-size: 16px;
+            color: var(--dark);
+            padding: 0 10px;
+            background: transparent;
+            border: 2px solid rgba(255, 75, 125, 0.15);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 75, 125, 0.2);
+        }
+
+        .input-group input:focus ~ label,
+        .input-group input:valid ~ label {
+            top: 0;
+            font-size: 12px;
+            background: var(--light-bg);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            height: 50px;
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 75, 125, 0.3);
+        }
+
+        .sign-link {
+            font-size: 14px;
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        .sign-link p {
+            color: #555;
+        }
+
+        .sign-link p a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 6 00;
+        }
+
+        .sign-link p a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .form-wrapper {
+            display: none;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        .form-wrapper.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wrapper">
+            <div class="form-wrapper sign-up">
+                <form id="signupForm" action="">
+                    <h2>Sign Up</h2>
+                    <div class="input-group">
+                        <input type="text" id="signupUsername" required>
+                        <label for="">Username</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" id="signupEmail" required>
+                        <label for="">Email</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="signupPassword" required>
+                        <label for="">Password</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="confirmPassword" required>
+                        <label for="">Confirm Password</label>
+                    </div>
+                    <div class="error-message" id="passwordError">Passwords do not match.</div>
+                    <button type="submit" class="btn">Sign Up</button>
+                    <div class="sign-link">
+                        <p>Already have an account? <a href="#" class="signIn-link">Sign In</a></p>
+                    </div>
+                </form>
+            </div>
+            <div class="form-wrapper sign-in active">
+                <form id="loginForm" action="">
+                    <h2>Login</h2>
+                    <div class="input-group">
+                        <input type="text" id="loginUsername" required>
+                        <label for="">Username</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="loginPassword" required>
+                        <label for="">Password</label>
+                    </div>
+                    <div class="forgot-pass">
+                        <a href="#">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="btn">Login</button>
+                    <div class="sign-link">
+                        <p>Don't have an account? <a href="#" class="signUp-link">Sign Up</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        const wrapper = document.querySelector('.wrapper');
+        const signUpLink = document.querySelector('.signUp-link');
+        const signInLink = document.querySelector('.signIn-link');
+        const signupForm = document.getElementById('signupForm');
+        const loginForm = document.getElementById('loginForm');
+        const passwordInput = document.getElementById('signupPassword');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const passwordError = document.getElementById('passwordError');
+        const signUpForm = document.querySelector('.form-wrapper.sign-up');
+        const signInForm = document.querySelector('.form-wrapper.sign-in');
+
+        // Switch between Sign Up and Login forms
+        signUpLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            signInForm.classList.remove('active');
+            signUpForm.classList.add('active');
+        });
+
+        signInLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            signUpForm.classList.remove('active');
+            signInForm.classList.add('active');
+        });
+
+        // Sign Up Form Submission
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (passwordInput.value !== confirmPasswordInput.value) {
+                passwordError.style.display = 'block'; // Show error message
+            } else {
+                passwordError.style.display = 'none'; // Hide error message
+                const user = {
+                    username: document.getElementById('signupUsername').value,
+                    email: document.getElementById('signupEmail').value,
+                    password: passwordInput.value,
+                };
+                localStorage.setItem('user', JSON.stringify(user)); // Save user data
+                alert('Sign up successful! Please log in.');
+                signUpForm.classList.remove('active');
+                signInForm.classList.add('active');
+            }
+        });
+
+        // Login Form Submission
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const storedUser = JSON.parse(localStorage.getItem('user')); // Retrieve user data
+            const loginUsername = document.getElementById('loginUsername').value;
+            const loginPassword = document.getElementById('loginPassword').value;
+
+            if (!storedUser) {
+                alert('No account found. Please sign up first.');
+            } else if (loginUsername === storedUser.username && loginPassword === storedUser.password) {
+                alert('Login successful! Redirecting to the main page...');
+                window.location.href = 'safemate.html'; // Redirect to the main page
+            } else {
+                alert('Invalid username or password.');
+            }
+        });
+    </script>
+</body>
+</html>

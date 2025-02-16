@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeMate - Settings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF4B7D;
+            --secondary: #FF7854;
+            --accent: #FFB800;
+            --dark: #2A2A2A;
+            --light-bg: rgba(255, 255, 255, 0.98);
+            --menu-gap: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            min-height: 100vh;
+            margin: 0;
+            padding: 10px;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+    
+        .container {
+            max-width: 400px;
+            margin: 10px auto;
+            background: var(--light-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+    
+        h1 {
+            color: white;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            padding: 15px;
+            border-radius: 15px;
+            text-align: center;
+            margin: -20px -20px 25px -20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            animation: titleFloat 3s ease-in-out infinite;
+        }
+    
+        .setting-item {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 14px;
+            padding: 18px;
+            margin: var(--menu-gap) 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+    
+        .setting-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        }
+    
+        .setting-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+    
+        /* Toggle Switch Matching Main Theme */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 24px;
+        }
+    
+        .toggle-switch input { 
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+    
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: var(--transition);
+            border-radius: 34px;
+        }
+    
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: var(--transition);
+            border-radius: 50%;
+        }
+    
+        input:checked + .toggle-slider {
+            background-color: var(--primary);
+        }
+    
+        input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+    
+        /* Consistent Form Elements */
+        select, input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid rgba(255, 75, 125, 0.15);
+            border-radius: 10px;
+            font-size: 15px;
+            background: var(--light-bg);
+            color: var(--dark);
+            transition: var(--transition);
+        }
+    
+        select:focus, input[type="password"]:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 75, 125, 0.2);
+        }
+    
+        /* Back Button Matching Primary Style */
+        .back-button {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin-top: 20px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+    
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 75, 125, 0.3);
+        }
+    
+        /* Dark Mode Consistency */
+        @media (prefers-color-scheme: dark) {
+            body:not(.dark-mode) {
+                --light-bg: #434242fa;
+                --dark: hsl(0, 11%, 2%);
+            }
+        }
+    
+        body.dark-mode {
+            --light-bg: rgba(42, 42, 42, 0.98);
+            --dark: hsl(0, 0%, 0%);
+            background: linear-gradient(135deg, #2A2A2A, #1A1A1A);
+        }
+    
+        body.dark-mode .setting-item {
+            background: #4c4c4cf2;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+    
+        body.dark-mode select,
+        body.dark-mode input[type="password"] {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.15);
+            color: white;
+        }
+
+    
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        justify-content: center;
+        align-items: center;
+        z-index: 1001;
+    }
+
+    .modal-content {
+        background: var(--light-bg);
+        padding: 20px;
+        border-radius: 15px;
+        width: 300px;
+        text-align: center;
+    }
+
+    .modal-buttons {
+        margin-top: 15px;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .secondary {
+        background: #666 !important;
+    }
+    #pinInput, #securityPin {
+    letter-spacing: 5px;
+    font-size: 24px;
+    text-align: center;
+    padding: 15px;
+}
+</style>
+    </style>
+</head>
+<body>
+    <div class="container settings-container">
+        <h1>⚙️ Settings</h1>
+        
+        <div class="setting-item" onclick="document.getElementById('darkMode').click()">
+            <div class="setting-label">
+                🌙 Dark Mode
+                <label class="toggle-switch">
+                    <input type="checkbox" id="darkMode">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <small>Enable dark theme for night use</small>
+        </div>
+
+        <div class="setting-item">
+            <div class="setting-label">
+                ⏱️ Response Delay
+                <select id="emergencyDelay">
+                    <option value="5">5s</option>
+                    <option value="10">10s</option>
+                    <option value="15">15s</option>
+                </select>
+            </div>
+            <small>Emergency activation delay</small>
+        </div>
+
+        <div class="setting-item">
+            <div class="setting-label">
+                📣 Alert Methods
+                <div style="display: flex; gap: 15px;">
+                    <label><input type="checkbox" id="smsAlerts" checked> SMS</label>
+                    <label><input type="checkbox" id="whatsappAlerts"> WhatsApp</label>
+                </div>
+            </div>
+            <small>Select notification methods</small>
+        </div>
+
+        <div class="setting-item">
+            <div class="setting-label">
+                <span>🔐 Security PIN</span>
+                <input type="password" id="securityPin" placeholder="Set 4-digit PIN" maxlength="4">
+            </div>
+            <small>Add extra security layer for emergency access</small>
+            <button onclick="savePIN()" class="primary" style="margin-top: 10px;">Save PIN</button>
+        </div>
+        <div id="pinModal" class="modal">
+            <div class="modal-content">
+                <h3>Enter Security PIN</h3>
+                <input type="password" id="pinInput" placeholder="Enter 4-digit PIN" maxlength="4">
+                <div class="modal-buttons">
+                    <button onclick="verifyPIN()" class="primary">Verify</button>
+                    <button onclick="closePinModal()" class="secondary">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <button class="back-button" onclick="window.history.back()">
+            <a href="safemate.html" class="btn">
+                <i class="fas fa-arrow-left"></i> Return to Safety
+            </a>
+        </button>
+    </div>
+</div>
+
+    <script>
+        // Enhanced Settings Logic
+        function applyDarkMode(enabled) {
+            document.body.classList.toggle('dark-mode', enabled);
+            localStorage.setItem('darkMode', enabled);
+        }
+
+        function loadSettings() {
+            const darkMode = localStorage.getItem('darkMode') === 'true';
+            document.getElementById('darkMode').checked = darkMode;
+            applyDarkMode(darkMode);
+
+            document.getElementById('emergencyDelay').value = 
+                localStorage.getItem('emergencyDelay') || '10';
+        }
+
+        // Event Listeners
+        document.getElementById('darkMode').addEventListener('change', (e) => {
+            applyDarkMode(e.target.checked);
+        });
+
+        document.getElementById('emergencyDelay').addEventListener('change', (e) => {
+            localStorage.setItem('emergencyDelay', e.target.value);
+        });
+
+        // Initialize
+        window.onload = loadSettings;
+        let pinAttempts = 0;
+const MAX_ATTEMPTS = 3;
+const LOCK_DURATION = 30000; // 30 seconds
+
+function savePIN() {
+    const pin = document.getElementById('securityPin').value;
+    if (/^\d{4}$/.test(pin)) {
+        // Simple hash for demonstration (use proper hashing in production)
+        const hashedPIN = btoa(pin); // Replace with bcrypt in real implementation
+        localStorage.setItem('securityPIN', hashedPIN);
+        alert('PIN saved successfully');
+    } else {
+        alert('Please enter a valid 4-digit PIN');
+    }
+}
+
+function showPinModal() {
+    document.getElementById('pinModal').style.display = 'flex';
+}
+
+function closePinModal() {
+    document.getElementById('pinModal').style.display = 'none';
+}
+
+function verifyPIN() {
+    if (Date.now() < localStorage.getItem('pinLockUntil')) {
+        alert(`Too many attempts. Try again in ${Math.ceil((localStorage.getItem('pinLockUntil') - Date.now())/1000)} seconds`);
+        return;
+    }
+
+    const enteredPIN = document.getElementById('pinInput').value;
+    const storedHash = localStorage.getItem('securityPIN');
+    
+    // Simple verification for demo (use bcrypt.compare in production)
+    if (btoa(enteredPIN) === storedHash) {
+        pinAttempts = 0;
+        closePinModal();
+        return true;
+    }
+
+    pinAttempts++;
+    if (pinAttempts >= MAX_ATTEMPTS) {
+        const lockUntil = Date.now() + LOCK_DURATION;
+        localStorage.setItem('pinLockUntil', lockUntil);
+        alert(`Too many attempts. Try again in ${LOCK_DURATION/1000} seconds`);
+    } else {
+        alert(`Invalid PIN. ${MAX_ATTEMPTS - pinAttempts} attempts remaining`);
+    }
+    return false;
+}
+
+// Modify your emergency trigger function
+function handleEmergency() {
+    if (localStorage.getItem('securityPIN')) {
+        showPinModal();
+    } else {
+        triggerEmergency();
+    }
+}
+
+// Update your existing triggerEmergency function
+function triggerEmergency() {
+    if (localStorage.getItem('securityPIN') && !verifyPIN()) return;
+    
+    const overlay = document.getElementById('sirenOverlay');
+    overlay.style.display = 'block';
+    navigator.vibrate([500, 200, 500]);
+    sendAlerts();
+    setTimeout(() => overlay.style.display = 'none', 5000);
+}
+if (localStorage.getItem('pinLockUntil') && Date.now() < localStorage.getItem('pinLockUntil')) {
+    alert(`PIN entry locked until ${new Date(Number(localStorage.getItem('pinLockUntil'))).toLocaleTimeString()}`);
+}
+    </script>
+</body>
+</html>

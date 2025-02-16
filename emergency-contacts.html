@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Emergency Contacts - SafeMate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF4B7D;
+            --secondary: #FF7854;
+            --light-bg: rgba(255, 255, 255, 0.98);
+            --dark: #2A2A2A;
+            --menu-gap: 12px;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            min-height: 100vh;
+            margin: 0;
+            padding: 10px;
+            color: var(--dark);
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 20px auto;
+            background: var(--light-bg);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-btn {
+            display: block;
+            width: calc(100% + 18px);
+            text-align: center;
+            padding: 12px;
+            margin: -20px -20px 25px -20px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            font-weight: 600;
+        }
+
+        .emergency-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--menu-gap);
+            padding: 0 10px;
+        }
+
+        .contact-card {
+            padding: 18px 12px;
+            border-radius: 14px;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        h1 {
+            color: var(--primary);
+            text-align: center;
+            margin: 0 0 25px 0;
+            font-size: 1.8rem;
+        }
+
+        h3 {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .contact-number {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                margin: 10px auto;
+                width: 95%;
+            }
+            
+            h1 {
+                font-size: 1.4rem;
+            }
+            
+            .contact-card {
+                padding: 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="safemate.html" class="back-btn">← Back to Safety</a>
+        <h1>🇵🇰 Pakistan Emergency Contacts</h1>
+        
+        <div class="emergency-grid">
+            <div class="contact-card">
+                <h3>Police</h3>
+                <a href="tel:15" class="contact-number">15</a>
+            </div>
+            
+            <div class="contact-card">
+                <h3>Women's Helpline</h3>
+                <a href="tel:1099" class="contact-number">1099</a>
+            </div>
+
+            <div class="contact-card">
+                <h3>Rescue 1122</h3>
+                <a href="tel:1122" class="contact-number">1122</a>
+            </div>
+
+            <div class="contact-card">
+                <h3>Edhi Foundation</h3>
+                <a href="tel:115" class="contact-number">115</a>
+            </div>
+
+            <div class="contact-card">
+                <h3>Domestic Violence</h3>
+                <a href="tel:080055555" class="contact-number">0800-55555</a>
+            </div>
+
+            <div class="contact-card">
+                <h3>Child Protection</h3>
+                <a href="tel:1098" class="contact-number">1098</a>
+            </div>
+
+            <div class="contact-card">
+                <h3>Red Crescent</h3>
+                <a href="tel:111733734" class="contact-number">111-733-734</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

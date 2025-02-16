@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Mobile Contacts - SafeMate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Copy the same CSS styles from index.html here */
+        :root {
+            --primary: #FF4B7D;
+            --secondary: #FF7854;
+            --dark: #2A2A2A;
+            --light-bg: rgba(255, 255, 255, 0.98);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            min-height: 100vh;
+            margin: 0;
+            padding: 10px;
+            color: var(--dark);
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 10px auto;
+            background: var(--light-bg);
+            border-radius: 20px;
+            padding: 20px;
+        }
+
+        .contact-item {
+            padding: 15px;
+            margin: 10px 0;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .send-alert-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📱 Mobile Contacts</h1>
+        <div id="contacts-list"></div>
+    </div>
+
+    <script>
+        function sendAlert(phone) {
+            if(navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    const message = `🚨 EMERGENCY! I need help at: https://maps.google.com/?q=${lat},${lng}`;
+                    
+                    // Send via SMS
+                    window.open(`sms:${phone}?body=${encodeURIComponent(message)}`);
+                    
+                    
+                });
+            } else {
+                alert('Location access required to send alerts');
+            }
+        }
+
+        function loadContacts() {
+            const contacts = JSON.parse(localStorage.getItem('contacts')) || [];
+            const list = document.getElementById('contacts-list');
+            
+            list.innerHTML = contacts.map(contact => `
+                <div class="contact-item">
+                    <div>
+                        <strong>${contact.name}</strong><br>
+                        ${contact.phone}
+                    </div>
+                    <button class="send-alert-btn" onclick="sendAlert('${contact.phone}')">
+                        Send Alert
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        window.onload = loadContacts;
+    </script>
+</body>
+</html>
